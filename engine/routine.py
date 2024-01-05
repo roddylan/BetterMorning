@@ -8,11 +8,14 @@ class DefaultRoutine:
     Class for default routine, custom routines built upon this
     '''
 
-    def __init__(self, bedtime):
+    def __init__(self, bedtime, spotify, bus_schedule, ):
         self.bedtime = bedtime
+        self.playlist = spotify
+        self.bus_schedule = bus_schedule
 
 
-class Routine():
+
+class Routine:
     def __init__(self, mood: Mood, default: DefaultRoutine):
         self.mood = mood
         self.default = default
