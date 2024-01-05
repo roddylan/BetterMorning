@@ -1,7 +1,7 @@
 class Time:
     def __init__(self, hour: int, minute: int):
-        self.hour = hour % 24
-        self.minute = minute % 60
+        self.hour = abs(hour) % 24
+        self.minute = abs(minute) % 60
     
     def __str__(self):
         f_hour = str(self.hour).zfill(2)
