@@ -2,3 +2,4 @@ numpy
 torch
 ultralytics
 langchain
+twilio
