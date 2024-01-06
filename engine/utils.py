@@ -2,6 +2,7 @@ from twilio.rest import Client
 import constants
 import os
 from dotenv import load_dotenv
+from collections import defaultdict
 
 class Time:
     def __init__(self, hour: int, minute: int):
@@ -34,6 +35,17 @@ class Schedule:
             ...
         }        
         '''
+        self._schedules = defaultdict(list)
+    
+    def get_schedules(self):
+        return self._schedules
+    
+    def get_schedule(self, label):
+        keys = self._schedules.keys()
+        if label in set(keys):
+            return self._schedules[label]
+        else:
+            return self._schedules[list(keys)[0]]
 
 class WorkoutPlan:
     def __init__(self):
