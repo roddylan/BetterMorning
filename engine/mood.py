@@ -3,8 +3,8 @@ class Mood:
         self._label = label
         self._awake, self._emotion = label.split('-')
     
-    # def is_awake(self):
-    #     return self._awake == "awake"
+    def is_awake(self):
+        return self._awake == "awake"
 
     def get_awake(self):
         return self._awake
