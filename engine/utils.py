@@ -1,3 +1,8 @@
+from twilio.rest import Client
+import constants
+import os
+from dotenv import load_dotenv
+
 class Time:
     def __init__(self, hour: int, minute: int):
         self.hour = abs(hour) % 24
@@ -15,3 +20,20 @@ class Time:
     
     def __add__(self, other):
         return Time(self.hour + other.hour, self.minute + other.minute)
+    
+
+# GET RID OF THIS AND JUST REPLACE WITH YOUR OWN (OR MAKE .env FILE)
+def get_sms_api():
+    load_dotenv()
+    return os.getenv["TWILIO_SID"], os.getenv["TWILIO_AUTH"], os.getenv["TWILIO_NUM"], os.getenv["TARGET_NUM"]
+
+def send_text(text, playlist):
+    sid, auth, twilio_num, target_num = get_sms_api() 
+    client = Client(sid, auth)
+    msg = client.messages.create(
+        body=f"\n{text.strip('"')} \n\nPS. Listen to this: {playlist} \n:)",
+        from_=twilio_num,
+        to=target_num
+    )
+
+    # TODO: make it just launch spotify instead of sending playlist link
