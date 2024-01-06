@@ -5,7 +5,6 @@ from langchain.prompts import PromptTemplate
 import numpy as np
 
 
-
 # add functions/variables to customize routines
 
 class DefaultRoutine:
@@ -13,10 +12,10 @@ class DefaultRoutine:
     Class for default routine, custom routines built upon this
     '''
 
-    def __init__(self, bedtime, spotify, schedule: list, bus_schedule, meal_plan):
+    def __init__(self, bedtime: utils.Time, spotify, schedule: utils.Schedule, bus_schedule, meal_plan):
         self._bedtime = bedtime
         self._playlists = spotify
-        self.schedule = schedule
+        self._schedule = schedule
         self.bus_schedule = bus_schedule
         self.meal_plan = meal_plan
 
@@ -25,8 +24,11 @@ class DefaultRoutine:
     
     def get_playlists(self):
         return self._playlists
+    
+    def get_schedules(self):
+        return self._schedule
 
-
+# TODO: IMPROVE SEPARATION, SEPARATE ROUTINE INSTANCES 
 class Routine:
     def __init__(self, mood: Mood, default: DefaultRoutine):
         self.mood = mood
@@ -45,11 +47,12 @@ class Routine:
         playlist = self.get_playlist()
         utils.send_text(gm_text)
 
-    def get_bedtime(self):
+    def set_bedtime(self, offset: utils.Time):
         if self.mood.is_awake():
-            return self.default.bedtime + utils.Time(1, 30)
+            # return self.default.bedtime + utils.Time(1, 30)
+            return self.default.get_bedtime()
         else:
-            return self.default.bedtime - utils.Time(1, 30)
+            return self.default.get_bedtime() - utils.Time(1, 30)
 
     def run(self):
         pass

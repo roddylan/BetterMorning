@@ -67,3 +67,8 @@ def send_text(text, playlist):
     )
 
     # TODO: make it just launch spotify instead of sending playlist link
+
+
+def get_picture():
+    # TODO: finish
+    return
