@@ -5,8 +5,9 @@ from dotenv import load_dotenv
 
 class Time:
     def __init__(self, hour: int, minute: int):
-        self.hour = abs(hour) % 24
         self.minute = abs(minute) % 60
+        extra = abs(minute) // 60
+        self.hour = abs(hour) % 24 + extra
     
     def __str__(self):
         f_hour = str(self.hour).zfill(2)
@@ -20,6 +21,9 @@ class Time:
     
     def __add__(self, other):
         return Time(self.hour + other.hour, self.minute + other.minute)
+    
+    def __sub__(self, other):
+        return Time(self.hour - other.hour, self.minute - other.minute)
     
 
 # GET RID OF THIS AND JUST REPLACE WITH YOUR OWN (OR MAKE .env FILE)
