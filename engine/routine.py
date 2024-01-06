@@ -11,13 +11,13 @@ class DefaultRoutine:
     '''
     Class for default routine, custom routines built upon this
     '''
-
-    def __init__(self, bedtime: utils.Time, spotify, schedule: utils.Schedule, bus_schedule, meal_plan):
+    # TODO: add meal_plan
+    def __init__(self, bedtime: utils.Time, spotify, schedule: utils.Schedule, bus_schedule):
         self._bedtime = bedtime
         self._playlists = spotify
         self._schedule = schedule
         self.bus_schedule = bus_schedule
-        self.meal_plan = meal_plan
+        # self.meal_plan = meal_plan
 
     def get_bedtime(self):
         return self._bedtime
@@ -55,7 +55,11 @@ class Routine:
             return self.default.get_bedtime() - utils.Time(1, 30)
 
     def run(self):
-        pass
+        sched = self.default.get_schedules()[self.mood]
+        # TODO: google calendar/tasks interaction
+        # TODO: clock interaction
+
+        self.send_text()
 
     def __str__(self):
         return f"< Routine: {self.mood.label} >"

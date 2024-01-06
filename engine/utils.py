@@ -3,6 +3,8 @@ import constants
 import os
 from dotenv import load_dotenv
 from collections import defaultdict
+import cv2
+import numpy as np
 
 class Time:
     def __init__(self, hour: int, minute: int):
@@ -46,9 +48,19 @@ class Schedule:
             return self._schedules[label]
         else:
             return self._schedules[list(keys)[0]]
+        
+    def get_events(self):
+        return self.events
+    
+    def make_schedule(self, label, events: list):
+        # self._schedules[label] = []
+        for event in events:
+            self._schedules[label].append(self.events[event])
+
 
 class WorkoutPlan:
     def __init__(self):
+        # TODO: FINISH
         pass
 
 
@@ -60,8 +72,9 @@ def get_sms_api():
 def send_text(text, playlist):
     sid, auth, twilio_num, target_num = get_sms_api() 
     client = Client(sid, auth)
+    txt = text.strip('"')
     msg = client.messages.create(
-        body=f"\n{text.strip('"')} \n\nPS. Listen to this: {playlist} \n:)",
+        body=f"\n{txt} \n\nPS. Listen to this: {playlist} \n:)",
         from_=twilio_num,
         to=target_num
     )
@@ -70,5 +83,9 @@ def send_text(text, playlist):
 
 
 def get_picture():
-    # TODO: finish
-    return
+    cam = cv2.VideoCapture(0)
+    result, img = cam.read()
+
+    if result:
+        return img
+    return False
