@@ -24,7 +24,21 @@ class Time:
     
     def __sub__(self, other):
         return Time(self.hour - other.hour, self.minute - other.minute)
-    
+
+class Schedule:
+    def __init__(self, events: dict):
+        self.events = events
+        '''
+        {
+            "name": "desc"
+            ...
+        }        
+        '''
+
+class WorkoutPlan:
+    def __init__(self):
+        pass
+
 
 # GET RID OF THIS AND JUST REPLACE WITH YOUR OWN (OR MAKE .env FILE)
 def get_sms_api():
