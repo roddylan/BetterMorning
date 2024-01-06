@@ -13,13 +13,18 @@ class DefaultRoutine:
     Class for default routine, custom routines built upon this
     '''
 
-    def __init__(self, bedtime, spotify, schedule, bus_schedule, meal_plan):
-        self.bedtime = bedtime
-        self.playlist = spotify
+    def __init__(self, bedtime, spotify, schedule: list, bus_schedule, meal_plan):
+        self._bedtime = bedtime
+        self._playlists = spotify
         self.schedule = schedule
         self.bus_schedule = bus_schedule
         self.meal_plan = meal_plan
 
+    def get_bedtime(self):
+        return self._bedtime
+    
+    def get_playlists(self):
+        return self._playlists
 
 
 class Routine:
@@ -28,7 +33,7 @@ class Routine:
         self.default = default
 
     def get_playlist(self):
-        playlists = self.default.playlist[self.mood.get_label()]
+        playlists = self.default.get_playlists()[self.mood.get_label()]
         idx = np.randint(0, len(playlists))
         return playlists[idx]
 
@@ -40,7 +45,11 @@ class Routine:
         playlist = self.get_playlist()
         utils.send_text(gm_text)
 
-        
+    def get_bedtime(self):
+        if self.mood.is_awake():
+            return self.default.bedtime + utils.Time(1, 30)
+        else:
+            return self.default.bedtime - utils.Time(1, 30)
 
     def run(self):
         pass
