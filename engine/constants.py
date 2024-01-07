@@ -1,5 +1,5 @@
 # from engine_utils import Time
-import setup
+from . import setup
 from langchain.llms import huggingface_hub # REPLACE IF NOT USING HUGGINGFACE
 
 setup.run()

@@ -66,7 +66,7 @@ class WorkoutPlan:
 # GET RID OF THIS AND JUST REPLACE WITH YOUR OWN (OR MAKE .env FILE)
 def get_sms_api():
     load_dotenv()
-    return os.getenv["TWILIO_SID"], os.getenv["TWILIO_AUTH"], os.getenv["TWILIO_NUM"], os.getenv["TARGET_NUM"]
+    return os.getenv("TWILIO_SID"), os.getenv("TWILIO_AUTH"), os.getenv("TWILIO_NUM"), os.getenv("TARGET_NUM")
 
 def send_text(text, playlist):
     sid, auth, twilio_num, target_num = get_sms_api() 
@@ -87,4 +87,4 @@ def get_picture():
 
     if result:
         return img
-    return False
+    return np.array(False)

@@ -1,6 +1,6 @@
-from mood import Mood
-import engine_utils as engine_utils
-import constants
+from .mood import Mood
+from . import engine_utils as engine_utils
+from . import constants
 from langchain.prompts import PromptTemplate
 import numpy as np
 
@@ -36,7 +36,7 @@ class Routine:
 
     def get_playlist(self):
         playlists = self.default.get_playlists()[self.mood.get_label()]
-        idx = np.randint(0, len(playlists))
+        idx = np.random.randint(0, len(playlists))
         return playlists[idx]
 
     def send_text(self):
@@ -45,7 +45,7 @@ class Routine:
         llm = constants.llm
         gm_text = llm(prompt)
         playlist = self.get_playlist()
-        engine_utils.send_text(gm_text)
+        engine_utils.send_text(text=gm_text, playlist=playlist)
 
     def set_bedtime(self, offset: engine_utils.Time):
         if self.mood.is_awake():
@@ -55,7 +55,8 @@ class Routine:
             return self.default.get_bedtime() - engine_utils.Time(1, 30)
 
     def run(self):
-        sched = self.default.get_schedules()[self.mood]
+        scheds = self.default.get_schedules()
+        sched = scheds.get_schedule(self.mood)
         # TODO: google calendar/tasks interaction
         # TODO: clock interaction
 
