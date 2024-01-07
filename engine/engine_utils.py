@@ -68,12 +68,25 @@ def get_sms_api():
     load_dotenv()
     return os.getenv("TWILIO_SID"), os.getenv("TWILIO_AUTH"), os.getenv("TWILIO_NUM"), os.getenv("TARGET_NUM")
 
-def send_text(text, playlist):
+def send_text(text, playlist, sched=None, bedtime=None):
     sid, auth, twilio_num, target_num = get_sms_api() 
     client = Client(sid, auth)
     txt = text.strip('"')
-    msg = client.messages.create(
+    # msg = client.messages.create(
+    #     body=f"\n{txt} \n\nPS. Listen to this: {playlist} \n:)",
+    #     from_=twilio_num,
+    #     to=target_num
+    # )
+
+    # TODO: TEMPORARY, SWITCH BACK WHEN MORNING ROUTINE AND BEDTIME IS CONNECTED TO GOOGLE CALENDAR + TASKS
+    msg1 = client.messages.create(
         body=f"\n{txt} \n\nPS. Listen to this: {playlist} \n:)",
+        from_=twilio_num,
+        to=target_num
+    )
+    
+    msg2 = client.messages.create(
+        body=f"Go to sleep at {bedtime}.\nYour morning routine is: {sched}",
         from_=twilio_num,
         to=target_num
     )
