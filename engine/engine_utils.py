@@ -86,7 +86,7 @@ def send_text(text, playlist, sched=None, bedtime=None):
     )
     
     msg2 = client.messages.create(
-        body=f"Go to sleep at {bedtime}.\nYour morning routine is: {sched}",
+        body=f"\nGo to sleep at {bedtime}.\nYour morning routine is: {sched}",
         from_=twilio_num,
         to=target_num
     )
