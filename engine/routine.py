@@ -1,5 +1,5 @@
 from mood import Mood
-import utils
+import engine_utils as engine_utils
 import constants
 from langchain.prompts import PromptTemplate
 import numpy as np
@@ -12,7 +12,7 @@ class DefaultRoutine:
     Class for default routine, custom routines built upon this
     '''
     # TODO: add meal_plan
-    def __init__(self, bedtime: utils.Time, spotify, schedule: utils.Schedule, bus_schedule):
+    def __init__(self, bedtime: engine_utils.Time, spotify, schedule: engine_utils.Schedule, bus_schedule):
         self._bedtime = bedtime
         self._playlists = spotify
         self._schedule = schedule
@@ -45,14 +45,14 @@ class Routine:
         llm = constants.llm
         gm_text = llm(prompt)
         playlist = self.get_playlist()
-        utils.send_text(gm_text)
+        engine_utils.send_text(gm_text)
 
-    def set_bedtime(self, offset: utils.Time):
+    def set_bedtime(self, offset: engine_utils.Time):
         if self.mood.is_awake():
             # return self.default.bedtime + utils.Time(1, 30)
             return self.default.get_bedtime()
         else:
-            return self.default.get_bedtime() - utils.Time(1, 30)
+            return self.default.get_bedtime() - engine_utils.Time(1, 30)
 
     def run(self):
         sched = self.default.get_schedules()[self.mood]

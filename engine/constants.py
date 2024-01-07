@@ -1,6 +1,8 @@
-from utils import Time
+# from engine_utils import Time
+import setup
 from langchain.llms import huggingface_hub # REPLACE IF NOT USING HUGGINGFACE
 
+setup.run()
 llm = huggingface_hub.HuggingFaceHub(repo_id="mistralai/Mixtral-8x7B-Instruct-v0.1",
                                      model_kwargs={"temperature":1.2})
 

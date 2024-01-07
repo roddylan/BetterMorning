@@ -5,5 +5,5 @@ from dotenv import load_dotenv
 
 def run():
     load_dotenv()
-    LLM_API_KEY = os.getenv["HF_APIKEY"] # REPLACE WITH LLM_API_KEY = "YOUR API KEY"
-    os.environ["HF_APIKEY"] = LLM_API_KEY # REPLACE IF NOT USING HUGGINGFACE
+    LLM_API_KEY = os.getenv("HF_APIKEY") # REPLACE WITH LLM_API_KEY = "YOUR API KEY"
+    os.environ["HUGGINGFACEHUB_API_TOKEN"] = LLM_API_KEY # REPLACE IF NOT USING HUGGINGFACE

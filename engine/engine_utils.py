@@ -1,5 +1,4 @@
 from twilio.rest import Client
-import constants
 import os
 from dotenv import load_dotenv
 from collections import defaultdict
