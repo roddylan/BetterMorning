@@ -161,4 +161,4 @@ cython_debug/
 
 
 # google api stuff
-.json
+*.json
